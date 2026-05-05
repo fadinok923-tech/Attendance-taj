@@ -443,11 +443,156 @@
   }
   .bulk-row.has-dup{border-color:rgba(196,143,16,.4);background:rgba(196,143,16,.03)}
 
-  /* Divider line in header area */
-  .page-header-divider{height:1px;background:linear-gradient(90deg,var(--border),transparent);margin-bottom:28px}
+  /* ── Import tab ── */
+  .import-zone{
+    border:2px dashed var(--border-md);border-radius:16px;
+    padding:36px 24px;text-align:center;cursor:pointer;
+    transition:all .2s;background:var(--surface2);position:relative
+  }
+  .import-zone:hover,.import-zone.drag{
+    border-color:var(--green);background:var(--green-light)
+  }
+  .import-zone input[type=file]{
+    position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%
+  }
+  .import-zone-icon{font-size:40px;margin-bottom:10px;opacity:.5}
+  .import-zone-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px}
+  .import-zone-sub{font-size:12px;color:var(--muted)}
+  .sample-card{
+    display:flex;align-items:center;gap:14px;
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    padding:16px 20px;box-shadow:var(--shadow-sm);margin-bottom:16px
+  }
+  .sample-icon{
+    width:44px;height:44px;background:rgba(36,112,196,.1);border:1px solid rgba(36,112,196,.2);
+    border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0
+  }
+  .sample-info{flex:1}
+  .sample-title{font-weight:600;font-size:14px;color:var(--text);margin-bottom:2px}
+  .sample-sub{font-size:12px;color:var(--muted)}
+  .import-preview{border-radius:14px;border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow-sm);margin-top:16px}
+  .import-preview-header{
+    background:var(--surface2);padding:12px 18px;border-bottom:1px solid var(--border);
+    display:flex;align-items:center;gap:10px
+  }
+  .import-preview-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;flex:1}
+  .import-stats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}
+  .import-stat{
+    background:var(--surface);border:1px solid var(--border);border-radius:10px;
+    padding:10px 16px;box-shadow:var(--shadow-sm);min-width:100px;text-align:center
+  }
+  .import-stat-val{font-family:'Syne',sans-serif;font-size:20px;font-weight:800}
+  .import-stat-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
+  .import-row-ok td{background:rgba(74,140,40,.04)}
+  .import-row-err td{background:rgba(196,60,60,.06)}
+  .import-row-warn td{background:rgba(196,143,16,.06)}
+  .err-tag{font-size:9px;padding:2px 6px;border-radius:6px;font-weight:700;white-space:nowrap;margin-left:4px}
+  .err-tag.error{background:var(--red-bg);color:var(--red)}
+  .err-tag.warn{background:var(--accent-bg);color:var(--accent)}
+  .err-tag.ok{background:rgba(74,140,40,.1);color:var(--green)}
+  .log-zone{
+    border:2px dashed var(--border-md);border-radius:16px;
+    padding:28px 24px;text-align:center;cursor:pointer;
+    transition:all .2s;background:var(--surface2);position:relative;margin-top:16px
+  }
+  .log-zone:hover,.log-zone.drag{border-color:var(--blue);background:var(--blue-bg)}
+  .log-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+
+  /* Progress ring */
+  .import-progress{display:none;align-items:center;gap:12px;padding:14px 18px;background:var(--green-light);border:1px solid rgba(74,140,40,.2);border-radius:12px;margin-top:12px}
+  .import-progress.show{display:flex}
+  .import-prog-bar{flex:1;height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}
+  .import-prog-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s}
+
+  /* ── Realtime sync UI ── */
+  .rt-chip{
+    display:flex;align-items:center;gap:6px;
+    background:var(--surface2);border:1px solid var(--border);
+    border-radius:20px;padding:5px 12px 5px 8px;font-size:12px;color:var(--muted-dark);
+    cursor:default;transition:all .2s
+  }
+  .rt-dot{
+    width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;
+    transition:background .3s
+  }
+  .rt-dot.connected{background:var(--green);box-shadow:0 0 0 3px rgba(74,140,40,.2)}
+  .rt-dot.syncing{background:var(--accent);animation:pulse .7s infinite}
+  .rt-dot.error{background:var(--red)}
+  .rt-users{
+    display:flex;align-items:center;gap:4px;
+    background:var(--surface2);border:1px solid var(--border);
+    border-radius:20px;padding:4px 10px 4px 7px;font-size:11px;font-weight:600;color:var(--muted-dark)
+  }
+  .rt-user-dots{display:flex;gap:-2px}
+  .rt-user-dot{
+    width:18px;height:18px;border-radius:50%;border:2px solid var(--surface);
+    background:var(--green);color:#fff;font-size:8px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;margin-left:-4px;flex-shrink:0
+  }
+  .rt-user-dot:first-child{margin-left:0}
+  .share-btn{
+    display:flex;align-items:center;gap:6px;
+    background:linear-gradient(135deg,var(--green),#5aaa30);color:#fff;border:none;
+    border-radius:20px;padding:6px 14px 6px 9px;font-size:12px;font-weight:600;
+    cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 2px 8px rgba(74,140,40,.25);
+    transition:all .18s
+  }
+  .share-btn:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(74,140,40,.4)}
+  .share-btn-icon{width:18px;height:18px;background:rgba(255,255,255,.2);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px}
+  .connect-btn{
+    display:flex;align-items:center;gap:6px;
+    background:var(--surface2);border:1px solid var(--border);
+    border-radius:20px;padding:6px 14px 6px 9px;font-size:12px;font-weight:500;
+    cursor:pointer;color:var(--muted-dark);font-family:'DM Sans',sans-serif;transition:all .18s
+  }
+  .connect-btn:hover{border-color:var(--border-md);color:var(--text)}
+
+  /* ── Setup modal ── */
+  .setup-step{margin-bottom:18px}
+  .setup-step-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:22px;height:22px;border-radius:50%;background:var(--green);color:#fff;
+    font-size:11px;font-weight:700;margin-right:8px;flex-shrink:0
+  }
+  .setup-step-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;display:flex;align-items:center}
+  .setup-step-sub{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:10px;padding-left:30px}
+  .setup-code{
+    font-family:'DM Mono',monospace;font-size:11px;background:var(--surface2);
+    border:1px solid var(--border);border-radius:8px;padding:10px 13px;
+    color:var(--text);line-height:1.7;white-space:pre-wrap;word-break:break-all
+  }
+  .room-id-display{
+    font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--green);
+    letter-spacing:4px;text-align:center;padding:20px;
+    background:var(--surface2);border:1px solid var(--border);border-radius:14px;
+    margin:16px 0
+  }
+  .share-instructions{font-size:12px;color:var(--muted);line-height:1.7;padding:12px 16px;background:var(--surface2);border-radius:10px;border:1px solid var(--border)}
+  .rt-live-bar{
+    display:none;background:linear-gradient(90deg,rgba(74,140,40,.06),transparent);
+    border-bottom:1px solid rgba(74,140,40,.15);padding:6px 32px;
+    font-size:11px;color:var(--green);font-weight:500;
+    align-items:center;gap:8px
+  }
+  .rt-live-bar.show{display:flex}
+  .rt-live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse .9s infinite}
+  .rt-change-feed{display:flex;gap:8px;overflow:hidden;flex:1}
+  .rt-change-item{
+    display:inline-flex;align-items:center;gap:5px;
+    background:rgba(74,140,40,.1);border:1px solid rgba(74,140,40,.2);
+    border-radius:20px;padding:2px 9px;font-size:10px;font-weight:600;
+    white-space:nowrap;animation:slideIn .3s ease
+  }
 </style>
 </head>
 <body>
+
+<!-- Realtime live change bar -->
+<div class="rt-live-bar" id="rtLiveBar">
+  <div class="rt-live-dot"></div>
+  <span>Live sync active</span>
+  <div class="rt-change-feed" id="rtChangeFeed"></div>
+</div>
 
 <header>
   <div class="logo">
@@ -455,6 +600,21 @@
     <span class="logo-text">Bio<span>Time</span> Manual</span>
   </div>
   <div class="header-right">
+    <!-- Realtime status -->
+    <div class="rt-chip" id="rtChip" title="Not connected to shared room">
+      <div class="rt-dot" id="rtDot"></div>
+      <span id="rtLabel">Local only</span>
+    </div>
+    <!-- Online users -->
+    <div class="rt-users" id="rtUsers" style="display:none">
+      <div class="rt-user-dots" id="rtUserDots"></div>
+      <span id="rtUserCount">1 online</span>
+    </div>
+    <!-- Action buttons -->
+    <button class="connect-btn" onclick="openSetupModal()" id="connectBtn">🔀 Switch Room</button>
+    <button class="share-btn" onclick="openShareModal()" id="shareBtn" style="display:none">
+      <span class="share-btn-icon">📡</span>Share Room
+    </button>
     <div class="clock-display">
       <span id="live-time">--:--:--</span>&nbsp;·&nbsp;<span id="live-date">---</span>
     </div>
@@ -542,6 +702,7 @@
   <div class="tabs">
     <button class="tab-btn active" onclick="switchTab('single',this)">➕ Single Entry</button>
     <button class="tab-btn" onclick="switchTab('bulk',this)">📋 Bulk Entry</button>
+    <button class="tab-btn" onclick="switchTab('import',this)">📥 Import</button>
     <button class="tab-btn" onclick="switchTab('summary',this)">💬 Daily Summary</button>
     <button class="tab-btn" onclick="switchTab('report',this)">⏱ Hours Report</button>
     <button class="tab-btn" id="tab-btn-log" onclick="switchTab('log',this)">📁 Full Log<span class="notif-dot" id="log-notif-dot"></span></button>
@@ -767,6 +928,113 @@
     </div>
   </div>
 
+  <!-- IMPORT TAB -->
+  <div class="tab-panel" id="tab-import">
+    <div class="grid-2" style="align-items:start">
+
+      <!-- LEFT: Upload cards -->
+      <div style="display:flex;flex-direction:column;gap:16px">
+
+        <!-- Sample download -->
+        <div class="sample-card">
+          <div class="sample-icon">📊</div>
+          <div class="sample-info">
+            <div class="sample-title">Download Sample Sheet</div>
+            <div class="sample-sub">Pre-formatted CSV with all employees and correct column headers ready to fill</div>
+          </div>
+          <button class="btn btn-blue" onclick="downloadSampleCSV()" style="white-space:nowrap">⬇ Sample CSV</button>
+        </div>
+
+        <!-- Attendance upload -->
+        <div class="card">
+          <div class="card-title"><div class="dot"></div>Import Attendance File</div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">
+            Upload a <strong>CSV</strong> or <strong>XLS/XLSX</strong> file. Required columns:
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px">
+            <span style="font-size:11px;background:var(--surface2);border:1px solid var(--border);padding:3px 9px;border-radius:6px;font-family:'DM Mono',monospace">employee</span>
+            <span style="font-size:11px;background:var(--surface2);border:1px solid var(--border);padding:3px 9px;border-radius:6px;font-family:'DM Mono',monospace">date</span>
+            <span style="font-size:11px;background:var(--surface2);border:1px solid var(--border);padding:3px 9px;border-radius:6px;font-family:'DM Mono',monospace">check_in</span>
+            <span style="font-size:11px;background:var(--surface2);border:1px solid var(--border);padding:3px 9px;border-radius:6px;font-family:'DM Mono',monospace">check_out</span>
+            <span style="font-size:11px;background:var(--surface2);border:1px solid var(--border);padding:3px 9px;border-radius:6px;font-family:'DM Mono',monospace">status</span>
+            <span style="font-size:11px;background:rgba(74,140,40,.1);border:1px solid rgba(74,140,40,.2);color:var(--green);padding:3px 9px;border-radius:6px;font-family:'DM Mono',monospace">notes (optional)</span>
+          </div>
+          <div class="import-zone" id="attZone" ondragover="zoneDrag(event,'attZone',true)" ondragleave="zoneDrag(event,'attZone',false)" ondrop="zoneDrop(event,'attZone')">
+            <input type="file" accept=".csv,.xls,.xlsx" onchange="handleAttFile(this.files[0])">
+            <div class="import-zone-icon">📂</div>
+            <div class="import-zone-title">Click or drag & drop file here</div>
+            <div class="import-zone-sub">CSV, XLS, or XLSX — max 5 MB</div>
+          </div>
+          <div class="import-progress" id="importProgress">
+            <span style="font-size:13px;color:var(--green);font-weight:500" id="importProgressLabel">Parsing file…</span>
+            <div class="import-prog-bar"><div class="import-prog-fill" id="importProgFill" style="width:0%"></div></div>
+          </div>
+        </div>
+
+        <!-- Log file upload -->
+        <div class="card">
+          <div class="card-title"><div class="dot"></div>Upload Biometric Log File</div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.6">
+            Raw punch log from ZKTeco / Suprema / Hikvision devices. Each line format:<br>
+            <code style="font-family:'DM Mono',monospace;font-size:11px;background:var(--surface2);padding:3px 8px;border-radius:4px">EMP_ID &nbsp; YYYY-MM-DD &nbsp; HH:MM:SS &nbsp; 0/1</code>
+          </p>
+          <div class="log-zone" id="logZone" ondragover="zoneDrag(event,'logZone',true)" ondragleave="zoneDrag(event,'logZone',false)" ondrop="zoneDrop(event,'logZone')">
+            <input type="file" accept=".csv,.txt,.log,.dat" onchange="handleLogFile(this.files[0])">
+            <div style="font-size:32px;margin-bottom:8px;opacity:.4">🔌</div>
+            <div style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px">Biometric Device Export</div>
+            <div style="font-size:12px;color:var(--muted)">.csv · .txt · .log · .dat</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Preview -->
+      <div>
+        <div class="card" id="importPreviewCard" style="display:none">
+          <div class="card-title"><div class="dot"></div>Preview
+            <span id="import-filename" style="margin-left:6px;font-size:10px;color:var(--muted);font-weight:400;font-family:'DM Mono',monospace;text-transform:none"></span>
+          </div>
+          <div class="import-stats" id="importStats"></div>
+          <div class="btn-group" style="margin-top:0;margin-bottom:16px;justify-content:flex-start">
+            <button class="btn btn-primary" onclick="commitImport()">✅ Import All Valid</button>
+            <button class="btn btn-secondary" onclick="clearImport()">✕ Clear</button>
+          </div>
+          <div class="import-preview">
+            <div class="import-preview-header">
+              <span class="import-preview-title">📋 Row Preview</span>
+              <span style="font-size:11px;color:var(--muted)" id="preview-row-count"></span>
+            </div>
+            <div style="overflow-x:auto;max-height:460px;overflow-y:auto">
+              <table style="width:100%;border-collapse:collapse;font-size:12px">
+                <thead>
+                  <tr style="background:var(--surface2)">
+                    <th style="padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)">#</th>
+                    <th style="padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)">Employee</th>
+                    <th style="padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)">Date</th>
+                    <th style="padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)">Check-In</th>
+                    <th style="padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)">Check-Out</th>
+                    <th style="padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)">Status</th>
+                    <th style="padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)">Notes</th>
+                    <th style="padding:9px 12px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted)">Validation</th>
+                  </tr>
+                </thead>
+                <tbody id="import-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="importEmptyCard">
+          <div style="text-align:center;padding:48px 20px;color:var(--muted)">
+            <div style="font-size:48px;margin-bottom:14px;opacity:.2">📥</div>
+            <div style="font-size:15px;font-weight:600;color:var(--text);margin-bottom:6px">Import attendance records</div>
+            <div style="font-size:13px;line-height:1.6">Upload a CSV/XLS file on the left to preview<br>and import records in bulk.</div>
+            <button class="btn btn-blue" style="margin-top:18px" onclick="downloadSampleCSV()">⬇ Download Sample CSV first</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- FULL LOG -->
   <div class="tab-panel" id="tab-log">
     <div class="filter-bar">
@@ -803,6 +1071,63 @@
         <div class="icon">📋</div>
         <p>No records yet. Use Single or Bulk Entry to add attendance.</p>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- SETUP MODAL -->
+<div class="modal-overlay" id="setupModal">
+  <div class="modal" style="max-width:440px">
+    <div class="modal-header">
+      <div class="modal-title">🔗 Switch Room</div>
+      <div class="modal-close" onclick="closeSetupModal()">✕</div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;background:var(--green-light);border:1px solid rgba(74,140,40,.25);border-radius:12px;padding:12px 16px;margin-bottom:20px">
+      <span style="font-size:18px">✅</span>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--green)">Connected to Firebase</div>
+        <div style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:2px">bio-attendance-73095-default-rtdb</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6">
+      Different rooms share the same Firebase project but keep data completely separate. Use separate rooms for different teams or shifts.
+    </p>
+
+    <div class="field" style="margin-bottom:18px">
+      <label>Room ID — Current: <span id="currentRoomLabel" style="color:var(--green);font-family:'DM Mono',monospace"></span></label>
+      <div style="display:flex;gap:8px">
+        <input type="text" id="setupRoomId" placeholder="e.g. NIGHT-SHIFT" style="text-transform:uppercase;font-family:'DM Mono',monospace;font-weight:600;letter-spacing:2px;font-size:15px">
+        <button class="btn btn-secondary" style="white-space:nowrap;padding:10px 14px" onclick="genRoomId()">🎲 Random</button>
+      </div>
+    </div>
+
+    <input type="hidden" id="setupDbUrl" value="">
+
+    <div class="btn-group" style="margin-top:8px">
+      <button class="btn btn-secondary" onclick="closeSetupModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="doConnect()">🔗 Switch Room</button>
+    </div>
+  </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="modal-overlay" id="shareModal">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header">
+      <div class="modal-title">📡 Share This Room</div>
+      <div class="modal-close" onclick="closeShareModal()">✕</div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);margin-bottom:4px">Your Room ID</p>
+    <div class="room-id-display" id="shareRoomIdDisplay">—</div>
+    <div class="share-instructions">
+      Anyone with this Room ID and the same Firebase Database URL will see all attendance data in real-time — every save, edit and delete syncs instantly across all connected devices.
+    </div>
+    <div class="btn-group" style="margin-top:16px">
+      <button class="btn btn-secondary" onclick="copyRoomId()">📋 Copy Room ID</button>
+      <button class="btn btn-whatsapp" onclick="shareRoomWhatsApp()">💬 Share via WhatsApp</button>
+      <button class="btn btn-danger" style="margin-right:auto;margin-top:0" onclick="disconnectFB()">🔌 Disconnect</button>
     </div>
   </div>
 </div>
@@ -888,6 +1213,10 @@ let shiftCfg = JSON.parse(localStorage.getItem('shift_cfg') || 'null') || {
   refreshMissingPunchAlert();
   startClock();
   document.getElementById('save-bulk-btn').textContent = `💾 Save All (${EMP.length})`;
+  // Seed a random room ID in the setup modal
+  genRoomId();
+  // Auto-reconnect if previously configured
+  fbAutoConnect();
 })();
 
 function today(){ return new Date().toISOString().split('T')[0]; }
@@ -1062,6 +1391,7 @@ function saveRecord(){
 }
 function commitSingle(rec){
   records.push(rec); save(); updateStats(); refreshMissingPunchAlert();
+  fbPutRecord(rec);
   toast(`Saved for ${rec.emp_name}`,'success');
   if(isMissingPunch(rec)) toast(`⚠ Missing punch detected for ${rec.emp_name}`,'error');
   clearForm();
@@ -1156,7 +1486,12 @@ function saveBulk(){
   }
   commitBulk(allRecs);
 }
-function commitBulk(recs){ records.push(...recs); save(); updateStats(); refreshBulkDupTags(); refreshMissingPunchAlert(); toast(`${recs.length} record(s) saved`,'success'); document.getElementById('bulk-dup-banner').classList.remove('show'); }
+function commitBulk(recs){
+  records.push(...recs); save(); updateStats(); refreshBulkDupTags(); refreshMissingPunchAlert();
+  recs.forEach(r => fbPutRecord(r));
+  toast(`${recs.length} record(s) saved`,'success');
+  document.getElementById('bulk-dup-banner').classList.remove('show');
+}
 function dismissBulkDup(){ pendingBulkRecords=[]; pendingBulkDupNames=[]; document.getElementById('bulk-dup-banner').classList.remove('show'); }
 function forceSaveBulk(){ commitBulk(pendingBulkRecords); pendingBulkRecords=[]; pendingBulkDupNames=[]; }
 function saveSkipDups(){
@@ -1388,10 +1723,22 @@ function saveEdit(){
   r.notes=document.getElementById('m_notes').value;
   r.shift=detectShift(inT,document.getElementById('m_shift').value);
   save(); renderLog(); updateStats(); refreshMissingPunchAlert(); closeModal();
+  fbPutRecord(r);
   toast('Record updated.','success');
 }
-function deleteRecord(idx){ if(!confirm('Delete this record?')) return; records.splice(idx,1); save(); renderLog(); updateStats(); refreshMissingPunchAlert(); toast('Deleted.','success'); }
-function clearAll(){ if(!confirm('Clear ALL records? Cannot be undone.')) return; records=[]; save(); renderLog(); updateStats(); refreshMissingPunchAlert(); toast('All cleared.','success'); }
+function deleteRecord(idx){
+  if(!confirm('Delete this record?')) return;
+  const rec = records[idx];
+  records.splice(idx,1); save(); renderLog(); updateStats(); refreshMissingPunchAlert();
+  fbDeleteRecord(rec.id);
+  toast('Deleted.','success');
+}
+function clearAll(){
+  if(!confirm('Clear ALL records? Cannot be undone.')) return;
+  records=[]; save(); renderLog(); updateStats(); refreshMissingPunchAlert();
+  fbClearAll();
+  toast('All cleared.','success');
+}
 
 function minsW(inT,outT){
   if(!inT||!outT) return 0;
@@ -1664,6 +2011,549 @@ function exportReportPDF(){
   addPdfFooter(doc);
   doc.save(`hours_report_${from}_to_${to}.pdf`);
   toast('Hours Report PDF exported!','success');
+}
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════
+   IMPORT ENGINE
+═══════════════════════════════════════════════════════ */
+const EMP_MAP = {};
+EMP.forEach(e => {
+  EMP_MAP[e.name.toLowerCase()] = e.name;
+  EMP_MAP[e.id.toLowerCase()]   = e.name;
+});
+
+function zoneDrag(e,id,on){ e.preventDefault(); document.getElementById(id).classList.toggle('drag',on); }
+function zoneDrop(e,id){ e.preventDefault(); document.getElementById(id).classList.remove('drag'); const f=e.dataTransfer.files[0]; if(!f) return; if(id==='attZone') handleAttFile(f); else handleLogFile(f); }
+
+function downloadSampleCSV(){
+  const td=today();
+  const rows=[
+    ['employee','date','check_in','check_out','status','notes'],
+    ...EMP.map(e=>[e.name,td,'08:00','17:00','Present',''])
+  ];
+  rows[2][4]='Late';    rows[2][5]='Traffic delay';
+  rows[3][2]='';        rows[3][3]=''; rows[3][4]='Absent'; rows[3][5]='No show';
+  rows[4][2]='18:00';   rows[4][3]='06:00'; rows[4][4]='Present'; rows[4][5]='Night duty';
+  rows[5][4]='Leave';   rows[5][5]='Annual Leave';
+  rows[6][4]='Half Day';rows[6][5]='Left early';
+  const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,"'")}"`).join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));
+  a.download=`biotime_sample_${td}.csv`; a.click();
+  toast('Sample CSV downloaded!','success');
+}
+
+function handleAttFile(file){
+  if(!file) return;
+  const ext=file.name.split('.').pop().toLowerCase();
+  showImportProgress('Reading file…',20);
+  if(ext==='csv'||ext==='txt'){
+    const r=new FileReader();
+    r.onload=e=>{ showImportProgress('Parsing…',60); const rows=parseCSVText(e.target.result); showImportProgress('Validating…',85); setTimeout(()=>{ importRows=rows.map(validateImportRow); renderImportPreview(file.name); hideImportProgress(); },80); };
+    r.readAsText(file);
+  } else if(ext==='xlsx'||ext==='xls'){
+    if(typeof XLSX!=='undefined'){
+      const r=new FileReader();
+      r.onload=e=>{ showImportProgress('Parsing Excel…',60); const wb=XLSX.read(new Uint8Array(e.target.result),{type:'array'}); const ws=wb.Sheets[wb.SheetNames[0]]; const data=XLSX.utils.sheet_to_json(ws,{defval:''}); showImportProgress('Validating…',85); setTimeout(()=>{ importRows=data.map(row=>validateImportRow(normaliseKeys(row))); renderImportPreview(file.name); hideImportProgress(); },80); };
+      r.readAsArrayBuffer(file);
+    } else {
+      showImportProgress('Loading Excel parser…',30);
+      const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+      s.onload=()=>handleAttFile(file); s.onerror=()=>{ hideImportProgress(); toast('Could not load Excel parser. Save as CSV.','error'); };
+      document.head.appendChild(s);
+    }
+  } else { toast('Use CSV or XLSX files.','error'); hideImportProgress(); }
+}
+
+function handleLogFile(file){
+  if(!file) return;
+  const r=new FileReader();
+  r.onload=e=>{
+    const lines=e.target.result.split(/\r?\n/).filter(l=>l.trim());
+    const punchMap={};
+    lines.forEach(line=>{
+      const parts=line.trim().split(/[\t,\s]+/);
+      if(parts.length<3) return;
+      const [rawId,rawDate,rawTime,dir='0']=parts;
+      const empName=resolveEmpName(rawId); if(!empName) return;
+      const date=normaliseDate(rawDate); const time=rawTime.slice(0,5);
+      if(!date||!time) return;
+      const key=`${empName}|||${date}`;
+      if(!punchMap[key]) punchMap[key]={name:empName,date,in:'',out:''};
+      if(dir==='0'||dir==='C/In') punchMap[key].in=time;
+      else if(dir==='1'||dir==='C/Out') punchMap[key].out=time;
+      else if(!punchMap[key].in) punchMap[key].in=time;
+      else punchMap[key].out=time;
+    });
+    const entries=Object.values(punchMap);
+    if(!entries.length){ toast('Could not parse log file. Check format.','error'); return; }
+    importRows=entries.map(p=>validateImportRow({employee:p.name,date:p.date,check_in:p.in,check_out:p.out,status:p.in?'Present':'Absent',notes:'From biometric log'}));
+    renderImportPreview(file.name);
+    toast(`Parsed ${importRows.length} records from log file`,'success');
+  };
+  r.readAsText(file);
+}
+
+function parseCSVText(text){
+  const lines=text.trim().split(/\r?\n/); if(lines.length<2) return [];
+  const headers=lines[0].split(',').map(h=>h.replace(/^"|"$/g,'').trim().toLowerCase().replace(/\s+/g,'_').replace(/[^a-z_]/g,''));
+  return lines.slice(1).filter(l=>l.trim()).map(line=>{
+    const vals=[]; let cur='',inq=false;
+    for(let c of line+','){if(c==='"'){inq=!inq;}else if(c===','&&!inq){vals.push(cur.trim());cur='';}else cur+=c;}
+    const row={};headers.forEach((h,i)=>{row[h]=(vals[i]||'').replace(/^"|"$/g,'').trim();});
+    return row;
+  });
+}
+
+function normaliseKeys(obj){
+  const n={};
+  Object.entries(obj).forEach(([k,v])=>{n[k.toLowerCase().replace(/\s+/g,'_').replace(/[^a-z_]/g,'')]=String(v).trim();});
+  n.employee  = n.employee||n.emp||n.name||n.employee_name||n.emp_name||'';
+  n.check_in  = n.check_in||n.in||n.check_in_time||n.time_in||n.checkin||'';
+  n.check_out = n.check_out||n.out||n.check_out_time||n.time_out||n.checkout||'';
+  n.status    = n.status||n.attendance||'';
+  return n;
+}
+
+function validateImportRow(raw){
+  const row=normaliseKeys(raw);
+  const errors=[],warnings=[];
+  const empName=resolveEmpName(row.employee);
+  if(!empName) errors.push('Unknown employee');
+  const date=normaliseDate(row.date);
+  if(!date) errors.push('Invalid date');
+  const inT=normaliseTime(row.check_in);
+  const outT=normaliseTime(row.check_out);
+  const statusMap={'present':'Present','p':'Present','1':'Present','absent':'Absent','a':'Absent','0':'Absent','late':'Late','l':'Late','leave':'Leave','lv':'Leave','half':'Half Day','half day':'Half Day','h':'Half Day'};
+  const rawSt=(row.status||'').trim();
+  const status=statusMap[rawSt.toLowerCase()]||(rawSt||( inT?'Present':'Absent'));
+  if(empName&&date&&isDup(empName,date)) warnings.push('Duplicate');
+  if(!inT&&['Present','Late','Half Day'].includes(status)) warnings.push('No check-in');
+  if(!outT&&['Present','Late','Half Day'].includes(status)) warnings.push('No check-out');
+  return {_raw:raw,emp_name:empName||row.employee,date,in:inT,out:outT,status,notes:row.notes||row.note||row.remarks||'',leave_type:row.leave_type||row.leave||'',errors,warnings,valid:errors.length===0};
+}
+
+function resolveEmpName(raw){
+  if(!raw) return null;
+  const key=String(raw).trim().toLowerCase();
+  if(EMP_MAP[key]) return EMP_MAP[key];
+  for(const [k,v] of Object.entries(EMP_MAP)){if(k.includes(key)||key.includes(k)) return v;}
+  return null;
+}
+function normaliseDate(raw){
+  if(!raw) return ''; raw=String(raw).trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw;
+  const m=raw.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{2,4})$/);
+  if(m){const y=m[3].length===2?'20'+m[3]:m[3];return `${y}-${m[2].padStart(2,'0')}-${m[1].padStart(2,'0')}`;}
+  const d=new Date(raw); if(!isNaN(d)) return d.toISOString().split('T')[0];
+  return '';
+}
+function normaliseTime(raw){
+  if(!raw) return ''; raw=String(raw).trim();
+  const m=raw.match(/(\d{1,2}):(\d{2})/); if(m) return `${m[1].padStart(2,'0')}:${m[2]}`;
+  return '';
+}
+
+let importRows=[];
+
+function renderImportPreview(filename){
+  document.getElementById('importEmptyCard').style.display='none';
+  document.getElementById('importPreviewCard').style.display='block';
+  document.getElementById('import-filename').textContent=filename;
+  const valid=importRows.filter(r=>r.valid&&!r.warnings.includes('Duplicate'));
+  const dups=importRows.filter(r=>r.warnings.includes('Duplicate'));
+  const invalid=importRows.filter(r=>!r.valid);
+  document.getElementById('importStats').innerHTML=`
+    <div class="import-stat"><div class="import-stat-val">${importRows.length}</div><div class="import-stat-label">Total Rows</div></div>
+    <div class="import-stat"><div class="import-stat-val sv-g">${valid.length}</div><div class="import-stat-label">Ready</div></div>
+    <div class="import-stat"><div class="import-stat-val sv-y">${dups.length}</div><div class="import-stat-label">Duplicates</div></div>
+    <div class="import-stat"><div class="import-stat-val sv-r">${invalid.length}</div><div class="import-stat-label">Errors</div></div>`;
+  document.getElementById('preview-row-count').textContent=`${importRows.length} rows`;
+  document.getElementById('import-tbody').innerHTML=importRows.map((r,i)=>{
+    const hasDup=r.warnings.includes('Duplicate');
+    const cls=!r.valid?'import-row-err':hasDup?'import-row-warn':'import-row-ok';
+    const tags=[...r.errors.map(e=>`<span class="err-tag error">⚠ ${e}</span>`),...r.warnings.map(w=>`<span class="err-tag warn">${w}</span>`),...(r.valid&&!hasDup?['<span class="err-tag ok">✓ OK</span>']:[])].join(' ');
+    const statusCls={Present:'badge-present',Absent:'badge-absent',Late:'badge-late',Leave:'badge-leave','Half Day':'badge-halfday'}[r.status]||'badge-present';
+    return `<tr class="${cls}"><td style="padding:9px 12px;color:var(--muted);font-family:'DM Mono',monospace;font-size:10px">${i+1}</td><td style="padding:9px 12px;font-weight:600">${r.emp_name||'<span style="color:var(--red)">—</span>'}</td><td style="padding:9px 12px;font-family:'DM Mono',monospace;font-size:11px">${r.date||'—'}</td><td style="padding:9px 12px;font-family:'DM Mono',monospace;font-size:11px">${r.in||'—'}</td><td style="padding:9px 12px;font-family:'DM Mono',monospace;font-size:11px">${r.out||'—'}</td><td style="padding:9px 12px"><span class="badge ${statusCls}">${r.status}</span></td><td style="padding:9px 12px;font-size:11px;color:var(--muted-dark);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${r.notes||'—'}</td><td style="padding:9px 12px">${tags}</td></tr>`;
+  }).join('');
+}
+
+function commitImport(){
+  const toImport=importRows.filter(r=>r.valid);
+  if(!toImport.length){toast('No valid rows to import.','error');return;}
+  let added=0,skipped=0;
+  toImport.forEach(r=>{
+    if(isDup(r.emp_name,r.date)){skipped++;return;}
+    const rec={id:Date.now()+Math.random(),emp_name:r.emp_name,date:r.date,in:r.in,out:r.out,shift:detectShift(r.in,'auto'),status:r.status,leave_type:r.leave_type||'',notes:r.notes||'',by:'import',ts:new Date().toISOString()};
+    records.push(rec); if(typeof fbPutRecord==='function') fbPutRecord(rec); added++;
+  });
+  save();updateStats();refreshMissingPunchAlert();
+  toast(`✅ Imported ${added} records${skipped?` · Skipped ${skipped} duplicates`:''}`, 'success');
+  clearImport();
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-btn-log').classList.add('active');
+  document.getElementById('tab-log').classList.add('active');
+  renderLog();
+}
+
+function clearImport(){
+  importRows=[];
+  document.getElementById('importPreviewCard').style.display='none';
+  document.getElementById('importEmptyCard').style.display='block';
+}
+function showImportProgress(label,pct){
+  document.getElementById('importProgress').classList.add('show');
+  document.getElementById('importProgressLabel').textContent=label;
+  document.getElementById('importProgFill').style.width=pct+'%';
+}
+function hideImportProgress(){ document.getElementById('importProgress').classList.remove('show'); }
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   FIREBASE REALTIME SYNC ENGINE
+   Uses Firebase REST API + Server-Sent Events (no SDK needed)
+   Free tier: 1GB storage, 10GB/month transfer
+═══════════════════════════════════════════════════════════ */
+let fbCfg = null;          // { dbUrl, roomId }
+let fbEventSource = null;  // SSE connection
+let fbConnected = false;
+let fbIgnoreNext = false;  // prevent echo on own writes
+let presenceUid = localStorage.getItem('bt_uid') || genUid();
+let presenceInterval = null;
+let onlineUsers = {};
+
+localStorage.setItem('bt_uid', presenceUid);
+
+function genUid(){
+  return Math.random().toString(36).slice(2,9);
+}
+function genRoomId(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let id='BT-';
+  for(let i=0;i<4;i++) id+=chars[Math.floor(Math.random()*chars.length)];
+  const el=document.getElementById('setupRoomId');
+  if(el) el.value=id;
+  return id;
+}
+
+/* ── URL helper ─────────────────────────────────────── */
+function fbBase(){ return `${fbCfg.dbUrl}/bt/${fbCfg.roomId}`; }
+function fbUrl(path){ return `${fbBase()}/${path}.json`; }
+
+/* ── REST helpers ────────────────────────────────────── */
+async function fbFetch(url, method='GET', body=null){
+  try {
+    const opts = { method, headers:{'Content-Type':'application/json'} };
+    if(body !== null) opts.body = JSON.stringify(body);
+    const res = await fetch(url, opts);
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    return method==='DELETE' ? null : res.json();
+  } catch(e) {
+    console.warn('[BioTime RT]', method, url, e.message);
+    return null;
+  }
+}
+
+/* ── Write a single record ───────────────────────────── */
+async function fbPutRecord(rec){
+  if(!fbCfg) return;
+  setRtStatus('syncing');
+  fbIgnoreNext = true;
+  await fbFetch(fbUrl(`records/${rec.id}`), 'PUT', rec);
+  setTimeout(()=>{ fbIgnoreNext=false; }, 400);
+  setRtStatus('connected');
+  showChangeFeed(`${rec.emp_name} — ${rec.status}`);
+}
+
+/* ── Delete a single record ─────────────────────────── */
+async function fbDeleteRecord(id){
+  if(!fbCfg) return;
+  fbIgnoreNext = true;
+  await fbFetch(fbUrl(`records/${id}`), 'DELETE');
+  setTimeout(()=>{ fbIgnoreNext=false; }, 400);
+}
+
+/* ── Clear all records ───────────────────────────────── */
+async function fbClearAll(){
+  if(!fbCfg) return;
+  fbIgnoreNext = true;
+  await fbFetch(fbUrl('records'), 'DELETE');
+  setTimeout(()=>{ fbIgnoreNext=false; }, 600);
+}
+
+/* ── Push all local records on first connect ─────────── */
+async function fbPushAll(){
+  if(!fbCfg || !records.length) return;
+  const obj={};
+  records.forEach(r => obj[r.id]=r);
+  fbIgnoreNext = true;
+  await fbFetch(fbUrl('records'), 'PUT', obj);
+  setTimeout(()=>{ fbIgnoreNext=false; }, 800);
+  toast(`Pushed ${records.length} local records to shared room`, 'success');
+}
+
+/* ── EventSource: real-time listener ────────────────── */
+function fbStartListening(){
+  if(fbEventSource){ fbEventSource.close(); fbEventSource=null; }
+
+  const sseUrl = fbUrl('records');
+  fbEventSource = new EventSource(sseUrl);
+
+  fbEventSource.addEventListener('put', e => {
+    if(fbIgnoreNext){ fbIgnoreNext=false; return; }
+    const { path, data } = JSON.parse(e.data);
+    if(path === '/'){
+      if(data){
+        const incoming = Object.values(data);
+        if(JSON.stringify(incoming) !== JSON.stringify(records)){
+          records = incoming;
+          localStorage.setItem('att_v3', JSON.stringify(records));
+          renderLog(); updateStats(); refreshMissingPunchAlert();
+          showChangeFeed('↓ Full sync received');
+        }
+      } else {
+        // Remote was cleared
+        records = [];
+        localStorage.setItem('att_v3','[]');
+        renderLog(); updateStats(); refreshMissingPunchAlert();
+      }
+    } else {
+      // Single record added or deleted
+      const id = path.replace(/^\//, '');
+      if(data === null){
+        // Deleted remotely
+        const before = records.length;
+        records = records.filter(r => String(r.id) !== id);
+        if(records.length !== before){
+          localStorage.setItem('att_v3', JSON.stringify(records));
+          renderLog(); updateStats(); refreshMissingPunchAlert();
+          showChangeFeed('↓ Record deleted');
+        }
+      } else {
+        // Added or updated remotely
+        const idx = records.findIndex(r => String(r.id) === String(id));
+        if(idx >= 0){
+          records[idx] = data;
+          showChangeFeed(`↓ ${data.emp_name} updated`);
+        } else {
+          records.push(data);
+          showChangeFeed(`↓ ${data.emp_name} — ${data.status}`);
+        }
+        localStorage.setItem('att_v3', JSON.stringify(records));
+        renderLog(); updateStats(); refreshMissingPunchAlert();
+      }
+    }
+    setRtStatus('connected');
+  });
+
+  fbEventSource.addEventListener('patch', e => {
+    if(fbIgnoreNext){ fbIgnoreNext=false; return; }
+    const { data } = JSON.parse(e.data);
+    if(data){
+      Object.entries(data).forEach(([id, rec]) => {
+        if(rec === null){
+          records = records.filter(r => String(r.id) !== id);
+        } else {
+          const idx = records.findIndex(r => String(r.id) === id);
+          if(idx >= 0) records[idx] = rec; else records.push(rec);
+        }
+      });
+      localStorage.setItem('att_v3', JSON.stringify(records));
+      renderLog(); updateStats(); refreshMissingPunchAlert();
+    }
+  });
+
+  fbEventSource.onerror = () => {
+    setRtStatus('error');
+    // Auto-reconnect after 5s
+    setTimeout(() => {
+      if(fbCfg && fbEventSource && fbEventSource.readyState === EventSource.CLOSED){
+        fbStartListening();
+      }
+    }, 5000);
+  };
+
+  fbEventSource.onopen = () => setRtStatus('connected');
+}
+
+/* ── Presence system ─────────────────────────────────── */
+async function fbAnnouncePresence(){
+  if(!fbCfg) return;
+  await fbFetch(fbUrl(`presence/${presenceUid}`), 'PUT', {
+    name: 'Admin', ts: Date.now(), uid: presenceUid
+  });
+  fbFetchPresence();
+}
+
+async function fbFetchPresence(){
+  if(!fbCfg) return;
+  const data = await fbFetch(fbUrl('presence'));
+  if(!data) return;
+  const now = Date.now();
+  const active = Object.entries(data).filter(([uid, p]) =>
+    p && (now - p.ts) < 90000
+  );
+  onlineUsers = {};
+  active.forEach(([uid, p]) => onlineUsers[uid]=p);
+  renderOnlineUsers(active.length);
+}
+
+function renderOnlineUsers(count){
+  const wrap = document.getElementById('rtUsers');
+  const dotsEl = document.getElementById('rtUserDots');
+  const countEl = document.getElementById('rtUserCount');
+  if(count < 1){ wrap.style.display='none'; return; }
+  wrap.style.display='flex';
+  const colors = ['#4a8c28','#2470c4','#7a56d6','#c48f10','#c43c3c'];
+  const initials = Object.values(onlineUsers).slice(0,3).map((u,i) =>
+    `<div class="rt-user-dot" style="background:${colors[i%colors.length]};z-index:${3-i}">${u.name?u.name[0]:'?'}</div>`
+  ).join('');
+  dotsEl.innerHTML = initials;
+  countEl.textContent = count === 1 ? '1 online' : `${count} online`;
+}
+
+/* ── Status UI ───────────────────────────────────────── */
+function setRtStatus(status){
+  fbConnected = status === 'connected';
+  const dot = document.getElementById('rtDot');
+  const label = document.getElementById('rtLabel');
+  const liveBar = document.getElementById('rtLiveBar');
+  dot.className = 'rt-dot ' + status;
+  if(status === 'connected'){
+    label.textContent = `Room: ${fbCfg?.roomId || '—'}`;
+    liveBar.classList.add('show');
+    document.getElementById('shareBtn').style.display = 'flex';
+    document.getElementById('connectBtn').style.display = 'flex';
+  } else if(status === 'syncing'){
+    label.textContent = 'Syncing…';
+    document.getElementById('shareBtn').style.display = 'flex';
+    document.getElementById('connectBtn').style.display = 'flex';
+  } else if(status === 'error'){
+    label.textContent = 'Reconnecting…';
+    liveBar.classList.remove('show');
+  } else {
+    label.textContent = 'Connecting…';
+  }
+}
+
+function showChangeFeed(msg){
+  const feed = document.getElementById('rtChangeFeed');
+  const chip = document.createElement('span');
+  chip.className = 'rt-change-item';
+  chip.textContent = msg;
+  feed.prepend(chip);
+  setTimeout(() => chip.remove(), 5000);
+}
+
+/* ── Connect / Disconnect ────────────────────────────── */
+/* ── HARDCODED FIREBASE CONFIG ─────────────────────────
+   Project: bio-attendance-73095
+   Auto-connects on every load — no manual setup needed
+──────────────────────────────────────────────────────── */
+const FB_DATABASE_URL = 'https://bio-attendance-73095-default-rtdb.firebaseio.com';
+const FB_DEFAULT_ROOM  = 'BIOTIME-MAIN';
+
+function fbAutoConnect(){
+  // Always auto-connect with the hardcoded project
+  const saved = JSON.parse(localStorage.getItem('fb_cfg') || 'null');
+  fbCfg = {
+    dbUrl:  FB_DATABASE_URL,
+    roomId: saved?.roomId || FB_DEFAULT_ROOM
+  };
+  localStorage.setItem('fb_cfg', JSON.stringify(fbCfg));
+  // Pre-fill setup modal fields in case user wants to change room
+  const urlEl  = document.getElementById('setupDbUrl');
+  const roomEl = document.getElementById('setupRoomId');
+  if(urlEl)  urlEl.value  = fbCfg.dbUrl;
+  if(roomEl) roomEl.value = fbCfg.roomId;
+  fbConnect();
+}
+
+async function fbConnect(){
+  if(!fbCfg) return;
+  setRtStatus('syncing');
+
+  // Check if remote has data
+  const remote = await fbFetch(fbUrl('records'));
+  if(remote && Object.keys(remote).length > 0){
+    // Remote has data — use it as source of truth
+    const remoteRecords = Object.values(remote);
+    if(remoteRecords.length > 0){
+      records = remoteRecords;
+      localStorage.setItem('att_v3', JSON.stringify(records));
+      renderLog(); updateStats(); refreshMissingPunchAlert();
+      toast(`↓ Synced ${records.length} records from room ${fbCfg.roomId}`, 'success');
+    }
+  } else if(records.length > 0){
+    // Local has data, remote is empty — push local up
+    await fbPushAll();
+  }
+
+  fbStartListening();
+  fbAnnouncePresence();
+  if(presenceInterval) clearInterval(presenceInterval);
+  presenceInterval = setInterval(fbAnnouncePresence, 30000);
+}
+
+function disconnectFB(){
+  if(!confirm('Disconnect from shared room? Data stays local.')) return;
+  if(fbEventSource){ fbEventSource.close(); fbEventSource=null; }
+  if(presenceInterval){ clearInterval(presenceInterval); presenceInterval=null; }
+  // Remove our presence
+  if(fbCfg) fbFetch(fbUrl(`presence/${presenceUid}`), 'DELETE');
+  fbCfg = null; fbConnected = false;
+  localStorage.removeItem('fb_cfg');
+  setRtStatus('disconnected');
+  document.getElementById('rtDot').className='rt-dot';
+  document.getElementById('rtLabel').textContent='Local only';
+  document.getElementById('rtUsers').style.display='none';
+  document.getElementById('shareBtn').style.display='none';
+  document.getElementById('connectBtn').style.display='flex';
+  closeShareModal();
+  toast('Disconnected from shared room', 'success');
+}
+
+/* ── Setup modal actions ──────────────────────────────── */
+function openSetupModal(){
+  const el = document.getElementById('currentRoomLabel');
+  if(el) el.textContent = fbCfg?.roomId || FB_DEFAULT_ROOM;
+  const roomEl = document.getElementById('setupRoomId');
+  if(roomEl) roomEl.value = fbCfg?.roomId || FB_DEFAULT_ROOM;
+  document.getElementById('setupModal').classList.add('open');
+}
+function closeSetupModal(){
+  document.getElementById('setupModal').classList.remove('open');
+}
+async function doConnect(){
+  const roomId = document.getElementById('setupRoomId').value.trim().toUpperCase() || FB_DEFAULT_ROOM;
+  fbCfg = { dbUrl: FB_DATABASE_URL, roomId };
+  localStorage.setItem('fb_cfg', JSON.stringify(fbCfg));
+  closeSetupModal();
+  await fbConnect();
+}
+
+/* ── Share modal actions ──────────────────────────────── */
+function openShareModal(){
+  document.getElementById('shareRoomIdDisplay').textContent = fbCfg?.roomId || '—';
+  document.getElementById('shareModal').classList.add('open');
+}
+function closeShareModal(){
+  document.getElementById('shareModal').classList.remove('open');
+}
+function copyRoomId(){
+  const id = fbCfg?.roomId || '';
+  navigator.clipboard.writeText(id).then(() => toast('Room ID copied!', 'success')).catch(() => {
+    const ta = document.createElement('textarea'); ta.value=id;
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta); toast('Copied!', 'success');
+  });
+}
+function shareRoomWhatsApp(){
+  const id = fbCfg?.roomId || FB_DEFAULT_ROOM;
+  const msg = `*BioTime Manual — Join Our Shared Room* 🕐\n\nRoom ID: *${id}*\n\n1. Open BioTime\n2. Click 🔀 Switch Room\n3. Enter Room ID: *${id}*\n4. Tap Switch Room — you'll see all attendance data live!`;
+  window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
 }
 </script>
 </body>
